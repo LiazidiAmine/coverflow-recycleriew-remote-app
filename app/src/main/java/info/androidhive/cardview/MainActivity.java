@@ -14,11 +14,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.DragEvent;
+import android.view.GestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TshirtsAdapter adapter;
     private List<Tshirt> tshirtList;
+    CarouselView carouselView;
+
+    int[] category = {R.drawable.tshirt1, R.drawable.tshirt2, R.drawable.tshirt3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +58,19 @@ public class MainActivity extends AppCompatActivity {
 
         prepareTshirts();
 
-        try {
-            Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        carouselView = (CarouselView) findViewById(R.id.carouselView);
+        carouselView.setPageCount(category.length);
+        carouselView.setImageListener(imageListener);
+
     }
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(category[position]);
+        }
+
+    };
 
     /**
      * Initializing collapsing toolbar
@@ -87,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                     collapsingToolbar.setTitle(" ");
                     isShow = false;
                 }
+
             }
         });
     }
@@ -95,48 +109,39 @@ public class MainActivity extends AppCompatActivity {
      * Adding few tshirts for testing
      */
     private void prepareTshirts() {
-        int[] covers = new int[]{
-                R.drawable.tshirt1,
-                R.drawable.tshirt2,
-                R.drawable.tshirt3,
-                R.drawable.tshirt4,
-                R.drawable.tshirt5,
-                R.drawable.tshirt6,
-                R.drawable.tshirt7,
-                R.drawable.tshirt8,
-                R.drawable.tshirt9,
-                R.drawable.tshirt10,
-                R.drawable.tshirt11};
-
-        Tshirt a = new Tshirt("Tshirt 10", covers[0]);
-        tshirtList.add(a);
-
-        a = new Tshirt("Tshirt 9", covers[1]);
-        tshirtList.add(a);
-
-        a = new Tshirt("Tshirt 8", covers[2]);
-        tshirtList.add(a);
-
-        a = new Tshirt("Tshirt 7", covers[3]);
-        tshirtList.add(a);
-
-        a = new Tshirt("Tshirt 6", covers[4]);
-        tshirtList.add(a);
-
-        a = new Tshirt("Tshirt 5", covers[5]);
-        tshirtList.add(a);
-
-        a = new Tshirt("Tshirt 4", covers[6]);
-        tshirtList.add(a);
-
-        a = new Tshirt("Tshirt 3", covers[7]);
-        tshirtList.add(a);
-
-        a = new Tshirt("Tshirt 2", covers[8]);
-        tshirtList.add(a);
-
-        a = new Tshirt("Tshirt 1", covers[9]);
-        tshirtList.add(a);
+            int[] covers = new int[]{
+                    R.drawable.tshirt1,
+                    R.drawable.tshirt2,
+                    R.drawable.tshirt3,
+                    R.drawable.tshirt4,
+                    R.drawable.tshirt5,
+                    R.drawable.tshirt6,
+                    R.drawable.tshirt7,
+                    R.drawable.tshirt8,
+                    R.drawable.tshirt9,
+                    R.drawable.tshirt10,
+                    R.drawable.tshirt11
+            };
+            Tshirt a = new Tshirt("Tshirt 8", covers[2]);
+            tshirtList.add(a);
+            a = new Tshirt("Tshirt 7", covers[3]);
+            tshirtList.add(a);
+            a = new Tshirt("Tshirt 6", covers[4]);
+            tshirtList.add(a);
+            a = new Tshirt("Tshirt 5", covers[5]);
+            tshirtList.add(a);
+            a = new Tshirt("Tshirt 10", covers[0]);
+            tshirtList.add(a);
+            a = new Tshirt("Tshirt 9", covers[1]);
+            tshirtList.add(a);
+            a = new Tshirt("Tshirt 4", covers[6]);
+            tshirtList.add(a);
+            a = new Tshirt("Tshirt 3", covers[7]);
+            tshirtList.add(a);
+            a = new Tshirt("Tshirt 2", covers[8]);
+            tshirtList.add(a);
+            a = new Tshirt("Tshirt 1", covers[9]);
+            tshirtList.add(a);
 
         adapter.notifyDataSetChanged();
     }
@@ -186,6 +191,5 @@ public class MainActivity extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
-
 
 }

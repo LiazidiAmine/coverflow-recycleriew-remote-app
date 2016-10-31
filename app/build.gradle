@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "info.androidhive.cardview"
-        minSdkVersion 15
+        minSdkVersion 22
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -25,7 +25,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
     compile 'com.android.support:support-v4:23.0.0'
-
+    compile 'com.synnapps:carouselview:0.0.10'
     // RecyclerView
     compile 'com.android.support:recyclerview-v7:23.3.+'
 

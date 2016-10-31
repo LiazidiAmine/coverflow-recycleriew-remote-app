@@ -79,10 +79,9 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
                 AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
                 ImageView imgview = new ImageView(mContext);
                 imgview.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT));
-                imgview.setAlpha(0.5f);
+                imgview.setAlpha(0.8f);
+                imgview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 imgview.setAdjustViewBounds(true);
-                imgview.setMaxHeight(500);
-                imgview.setMaxWidth(200);
                 /*C'est ce qu'il faut éditer pour mettre une fake image à afficher */
                 imgview.setImageDrawable(holder.thumbnail.getDrawable());
 
