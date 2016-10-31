@@ -1,9 +1,10 @@
 package info.androidhive.cardview;
 
+/**
+ * Created by Amine Liazidi on 31/10/16.
+ */
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -14,8 +15,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -26,30 +25,50 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private AlbumsAdapter adapter;
-    private List<Album> albumList;
+    private TshirtsAdapter adapter;
+    private List<Tshirt> tshirtList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Making notification bar transparent
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        changeStatusBarColor();
+        initCollapsingToolbar();
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        tshirtList = new ArrayList<>();
+        adapter = new TshirtsAdapter(this, tshirtList);
+
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+
+        prepareTshirts();
+
+        try {
+            Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Initializing collapsing toolbar
+     * Will show and hide the toolbar title on scroll
+     */
+    private void initCollapsingToolbar() {
         final CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(" ");
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setExpanded(true);
 
+        // hiding & showing the title when toolbar expanded & collapsed
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
@@ -68,52 +87,61 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        albumList = new ArrayList<>();
-        adapter = new AlbumsAdapter(albumList);
-
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-
-        prepareAlbums();
-
-        try {
-            Glide.with(this).load(R.drawable.cover1).into((ImageView) findViewById(R.id.backdrop));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    private void prepareAlbums() {
+    /**
+     * Adding few tshirts for testing
+     */
+    private void prepareTshirts() {
         int[] covers = new int[]{
-                R.drawable.album1,
-                R.drawable.album2,
-                R.drawable.album3,
-                R.drawable.album4,
-                R.drawable.album5,
-                R.drawable.album6,
-                R.drawable.album7,
-                R.drawable.album8,
-                R.drawable.album9,
-                R.drawable.album10,
-                R.drawable.album11};
+                R.drawable.tshirt1,
+                R.drawable.tshirt2,
+                R.drawable.tshirt3,
+                R.drawable.tshirt4,
+                R.drawable.tshirt5,
+                R.drawable.tshirt6,
+                R.drawable.tshirt7,
+                R.drawable.tshirt8,
+                R.drawable.tshirt9,
+                R.drawable.tshirt10,
+                R.drawable.tshirt11};
 
-        for (int i = 0; i < covers.length; i++) {
-            Album a = new Album();
-            a.setName("Album: " + i);
-            a.setThumbnail(covers[i]);
+        Tshirt a = new Tshirt("Tshirt 10", covers[0]);
+        tshirtList.add(a);
 
-            albumList.add(a);
-        }
+        a = new Tshirt("Tshirt 9", covers[1]);
+        tshirtList.add(a);
+
+        a = new Tshirt("Tshirt 8", covers[2]);
+        tshirtList.add(a);
+
+        a = new Tshirt("Tshirt 7", covers[3]);
+        tshirtList.add(a);
+
+        a = new Tshirt("Tshirt 6", covers[4]);
+        tshirtList.add(a);
+
+        a = new Tshirt("Tshirt 5", covers[5]);
+        tshirtList.add(a);
+
+        a = new Tshirt("Tshirt 4", covers[6]);
+        tshirtList.add(a);
+
+        a = new Tshirt("Tshirt 3", covers[7]);
+        tshirtList.add(a);
+
+        a = new Tshirt("Tshirt 2", covers[8]);
+        tshirtList.add(a);
+
+        a = new Tshirt("Tshirt 1", covers[9]);
+        tshirtList.add(a);
 
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * RecyclerView item decoration - give equal margin around grid item
+     */
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
         private int spanCount;
@@ -149,19 +177,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Converting dp to pixel
+     */
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
-    }
-
-    /**
-     * Making notification bar transparent
-     */
-    private void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
     }
 }
