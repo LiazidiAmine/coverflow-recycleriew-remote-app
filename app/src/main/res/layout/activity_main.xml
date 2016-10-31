@@ -29,15 +29,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <com.synnapps.carouselview.CarouselView
-                    android:id="@+id/carouselView"
+                <me.crosswall.lib.coverflow.core.PagerContainer
+                    android:id="@+id/pager_container"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    app:fillColor="#FFFFFFFF"
-                    app:pageColor="#00000000"
-                    app:radius="6dp"
-                    app:autoPlay="false"
-                    app:slideInterval="3000"/>
+                    android:layout_height="180dp">
+
+                    <android.support.v4.view.ViewPager
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"/>
+
+                </me.crosswall.lib.coverflow.core.PagerContainer>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -45,21 +47,6 @@
                     android:layout_centerInParent="true"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/love_music"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/backdrop_title"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/backdrop_title" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/backdrop_subtitle"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/backdrop_subtitle" />
 
                 </LinearLayout>
             </RelativeLayout>

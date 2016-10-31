@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  */
 public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHolder> {
 
-    private boolean zoomOut =  false;
+    private static String URL = "";
     private Context mContext;
     private List<Tshirt> tshirtList;
 
@@ -82,8 +82,11 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
                 imgview.setAlpha(0.8f);
                 imgview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 imgview.setAdjustViewBounds(true);
-                /*C'est ce qu'il faut éditer pour mettre une fake image à afficher */
+
                 imgview.setImageDrawable(holder.thumbnail.getDrawable());
+                /*SENDING HTTP POST REQUEST*/
+                AsyncT asyncT = new AsyncT();
+                asyncT.doInBackground(URL,"name",tshirt.getName());
 
                 dialog.setView(imgview).show();
 

@@ -4,25 +4,31 @@ package info.androidhive.cardview;
  * Created by Amine Liazidi on 31/10/16.
  */
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.DragEvent;
-import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
-
+import me.crosswall.lib.coverflow.CoverFlow;
+import me.crosswall.lib.coverflow.core.PageItemClickListener;
+import me.crosswall.lib.coverflow.core.PagerContainer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private TshirtsAdapter adapter;
-    private List<Tshirt> tshirtList;
-    CarouselView carouselView;
-
-    int[] category = {R.drawable.tshirt1, R.drawable.tshirt2, R.drawable.tshirt3};
+    List<Tshirt> tshirtList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,19 +61,30 @@ public class MainActivity extends AppCompatActivity {
 
         prepareTshirts();
 
-        carouselView = (CarouselView) findViewById(R.id.carouselView);
-        carouselView.setPageCount(category.length);
-        carouselView.setImageListener(imageListener);
+        PagerContainer mContainer = (PagerContainer) findViewById(R.id.pager_container);
 
-    }
+        final ViewPager pager = mContainer.getViewPager();
 
-    ImageListener imageListener = new ImageListener() {
-        @Override
-        public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(category[position]);
+        PagerAdapter adapter = new MyPagerAdapter();
+        pager.setAdapter(adapter);
+
+        pager.setOffscreenPageLimit(adapter.getCount());
+
+        pager.setClipChildren(false);
+
+        boolean showRotate = getIntent().getBooleanExtra("showRotate",true);
+
+        if(showRotate){
+            new CoverFlow.Builder()
+                    .with(pager)
+                    .scale(0.5f)
+                    .pagerMargin(0f)
+                    .spaceSize(0f)
+                    .rotationY(25f)
+                    .build();
         }
 
-    };
+    }
 
     /**
      * Initializing collapsing toolbar
@@ -190,6 +204,42 @@ public class MainActivity extends AppCompatActivity {
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    private class MyPagerAdapter extends PagerAdapter {
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            final int p = position;
+            TextView view = new TextView(MainActivity.this);
+            view.setText("Item "+position);
+            view.setGravity(Gravity.CENTER);
+            view.setBackgroundColor(Color.argb(255, position * 50, position * 10, position * 50));
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(MainActivity.this, "BLABLA : "+p, Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            container.addView(view);
+            return view;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View)object);
+        }
+
+        @Override
+        public int getCount() {
+            return 5;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return (view == object);
+        }
     }
 
 }

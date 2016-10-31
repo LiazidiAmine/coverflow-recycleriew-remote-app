@@ -17,4 +17,14 @@
     <dimen name="ic_tshirt_overflow_width">20dp</dimen>
     <dimen name="ic_tshirt_overflow_height">30dp</dimen>
     <dimen name="ic_tshirt_overflow_margin_top">10dp</dimen>
+
+    <dimen name="brother_pager_width">150dp</dimen>
+
+    <dimen name="cover_pager_height">220dp</dimen>
+
+    <dimen name="tab_height">48dp</dimen>
+
+    <dimen name="pager_margin">-30dp</dimen>
+
+    <dimen name="overlap_pager_margin">-60dp</dimen>
 </resources>
