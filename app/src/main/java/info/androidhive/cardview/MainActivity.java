@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+
 
         prepareTshirts();
 
@@ -184,4 +186,6 @@ public class MainActivity extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
+
 }
