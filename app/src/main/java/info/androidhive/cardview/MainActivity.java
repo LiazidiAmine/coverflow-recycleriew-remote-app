@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.homme4,
             R.drawable.homme5
     };
-    int[] cover = new int[]{
+    int[] covers = new int[]{
             R.drawable.cover1,
             R.drawable.cover2,
             R.drawable.cover3,
@@ -222,18 +222,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             final int p = position;
-            ImageView view = new ImageView(MainActivity.this);
+            CoverAdapter cover = new CoverAdapter(getBaseContext());
+            cover.cover_title.setText("<");
+            cover.cover_title2.setText(">");
             if(p == 0){
-                view.setBackgroundResource(cover[0]);
+                cover.img_cover.setBackgroundResource(covers[0]);
             }else if(p==1){
-                view.setBackgroundResource(cover[1]);
+                cover.img_cover.setBackgroundResource(covers[1]);
             }else if(p==2){
-                view.setBackgroundResource(cover[2]);
+                cover.img_cover.setBackgroundResource(covers[2]);
             }else if(p==3){
-                view.setBackgroundResource(cover[3]);
+                cover.img_cover.setBackgroundResource(covers[3]);
             }
 
-            view.setOnClickListener(new View.OnClickListener() {
+            cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(p == 0){
@@ -272,8 +274,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-            container.addView(view);
-            return view;
+            container.addView(cover);
+            return cover;
         }
 
         @Override

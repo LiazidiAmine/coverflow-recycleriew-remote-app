@@ -65,7 +65,7 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Tshirt tshirt = tshirtList.get(position);
         holder.title.setText(tshirt.getName());
-        // loading tshirt cover using Glide library
+        // loading tshirt covers using Glide library
         Glide.with(mContext).load(tshirt.getThumbnail()).into(holder.thumbnail);
 
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
@@ -84,9 +84,6 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
                 /*SENDING HTTP POST REQUEST*/
                 postRequest(URL,tshirt.getName());
 
-
-
-
             }
         });
 
@@ -97,7 +94,7 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
             new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    
+
                 }
             },
             new Response.ErrorListener() {
