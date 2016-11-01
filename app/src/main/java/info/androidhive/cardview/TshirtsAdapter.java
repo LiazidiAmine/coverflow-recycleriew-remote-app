@@ -3,7 +3,6 @@ package info.androidhive.cardview;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ import java.util.Map;
  */
 public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHolder> {
 
+    /* POST REQUEST URL */
     private final static String URL = "http://192.168.1.85:3000/shirt";
     private Context mContext;
     private List<Tshirt> tshirtList;
