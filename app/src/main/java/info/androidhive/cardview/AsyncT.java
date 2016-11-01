@@ -1,6 +1,7 @@
 package info.androidhive.cardview;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +27,8 @@ class AsyncT extends AsyncTask<String,Void,Void> {
             httpURLConnection.setRequestMethod("POST"); // here you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
             httpURLConnection.setRequestProperty("Content-Type", "application/json"); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
             httpURLConnection.connect();
-
+            System.out.println("POOOOOOST");
+            Log.d("POST","POOOOOOOOOOOOOOOOOOOST");
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(params[1], params[2]);
 

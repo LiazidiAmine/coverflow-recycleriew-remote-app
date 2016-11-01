@@ -6,9 +6,11 @@ package info.androidhive.cardview;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.LinkagePager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -24,8 +26,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
 import me.crosswall.lib.coverflow.CoverFlow;
 import me.crosswall.lib.coverflow.core.PageItemClickListener;
 import me.crosswall.lib.coverflow.core.PagerContainer;
@@ -37,6 +37,19 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TshirtsAdapter adapter;
     List<Tshirt> tshirtList;
+    int[] covers = new int[]{
+            R.drawable.tshirt1,
+            R.drawable.tshirt2,
+            R.drawable.tshirt3,
+            R.drawable.tshirt4,
+            R.drawable.tshirt5,
+            R.drawable.tshirt6,
+            R.drawable.tshirt7,
+            R.drawable.tshirt8,
+            R.drawable.tshirt9,
+            R.drawable.tshirt10,
+            R.drawable.tshirt11
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-        prepareTshirts();
-
         PagerContainer mContainer = (PagerContainer) findViewById(R.id.pager_container);
+
+        prepareTshirts();
 
         final ViewPager pager = mContainer.getViewPager();
 
@@ -84,6 +97,33 @@ public class MainActivity extends AppCompatActivity {
                     .build();
         }
 
+    }
+
+    /**
+     * Adding few tshirts for testing
+     */
+    private void prepareTshirts() {
+        Tshirt a = new Tshirt("Tshirt 8", covers[2]);
+        tshirtList.add(a);
+        a = new Tshirt("Tshirt 7", covers[3]);
+        tshirtList.add(a);
+        a = new Tshirt("Tshirt 6", covers[4]);
+        tshirtList.add(a);
+        a = new Tshirt("Tshirt 5", covers[5]);
+        tshirtList.add(a);
+        a = new Tshirt("Tshirt 10", covers[0]);
+        tshirtList.add(a);
+        a = new Tshirt("Tshirt 9", covers[1]);
+        tshirtList.add(a);
+        a = new Tshirt("Tshirt 4", covers[6]);
+        tshirtList.add(a);
+        a = new Tshirt("Tshirt 3", covers[7]);
+        tshirtList.add(a);
+        a = new Tshirt("Tshirt 2", covers[8]);
+        tshirtList.add(a);
+        a = new Tshirt("Tshirt 1", covers[9]);
+        tshirtList.add(a);
+        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -117,47 +157,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    /**
-     * Adding few tshirts for testing
-     */
-    private void prepareTshirts() {
-            int[] covers = new int[]{
-                    R.drawable.tshirt1,
-                    R.drawable.tshirt2,
-                    R.drawable.tshirt3,
-                    R.drawable.tshirt4,
-                    R.drawable.tshirt5,
-                    R.drawable.tshirt6,
-                    R.drawable.tshirt7,
-                    R.drawable.tshirt8,
-                    R.drawable.tshirt9,
-                    R.drawable.tshirt10,
-                    R.drawable.tshirt11
-            };
-            Tshirt a = new Tshirt("Tshirt 8", covers[2]);
-            tshirtList.add(a);
-            a = new Tshirt("Tshirt 7", covers[3]);
-            tshirtList.add(a);
-            a = new Tshirt("Tshirt 6", covers[4]);
-            tshirtList.add(a);
-            a = new Tshirt("Tshirt 5", covers[5]);
-            tshirtList.add(a);
-            a = new Tshirt("Tshirt 10", covers[0]);
-            tshirtList.add(a);
-            a = new Tshirt("Tshirt 9", covers[1]);
-            tshirtList.add(a);
-            a = new Tshirt("Tshirt 4", covers[6]);
-            tshirtList.add(a);
-            a = new Tshirt("Tshirt 3", covers[7]);
-            tshirtList.add(a);
-            a = new Tshirt("Tshirt 2", covers[8]);
-            tshirtList.add(a);
-            a = new Tshirt("Tshirt 1", covers[9]);
-            tshirtList.add(a);
-
-        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -211,14 +210,44 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             final int p = position;
-            TextView view = new TextView(MainActivity.this);
-            view.setText("Item "+position);
-            view.setGravity(Gravity.CENTER);
-            view.setBackgroundColor(Color.argb(255, position * 50, position * 10, position * 50));
+            ImageView view = new ImageView(MainActivity.this);
+            view.setBackgroundResource(R.drawable.tshirt1);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(MainActivity.this, "BLABLA : "+p, Toast.LENGTH_SHORT).show();
+                    if(p == 0){
+                        tshirtList.clear();
+                        Tshirt a = new Tshirt("Tshirt 9", covers[1]);
+                        tshirtList.add(a);
+                        a = new Tshirt("Tshirt 8", covers[2]);
+                        tshirtList.add(a);
+                        adapter.notifyDataSetChanged();
+                    } else if (p == 1) {
+                        tshirtList.clear();
+                        Tshirt a = new Tshirt("Tshirt 7", covers[3]);
+                        tshirtList.add(a);
+                        a = new Tshirt("Tshirt 6", covers[4]);
+                        tshirtList.add(a);
+                        a = new Tshirt("Tshirt 5", covers[5]);
+                        tshirtList.add(a);
+                        adapter.notifyDataSetChanged();
+                    } else if (p == 2) {
+                        tshirtList.clear();
+                        Tshirt a = new Tshirt("Tshirt 10", covers[0]);
+                        tshirtList.add(a);
+                        a = new Tshirt("Tshirt 4", covers[6]);
+                        tshirtList.add(a);
+                        adapter.notifyDataSetChanged();
+                    } else if (p == 3) {
+                        tshirtList.clear();
+                        Tshirt a = new Tshirt("Tshirt 3", covers[7]);
+                        tshirtList.add(a);
+                        a = new Tshirt("Tshirt 2", covers[8]);
+                        tshirtList.add(a);
+                        a = new Tshirt("Tshirt 1", covers[9]);
+                        tshirtList.add(a);
+                        adapter.notifyDataSetChanged();
+                    }
 
                 }
             });
@@ -233,13 +262,15 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 5;
+            return 4;
         }
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return (view == object);
         }
+
+
     }
 
 }

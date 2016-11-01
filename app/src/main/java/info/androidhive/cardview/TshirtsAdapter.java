@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  */
 public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHolder> {
 
-    private static String URL = "";
+    private static String URL = "http://localhost:9997/tshirt";
     private Context mContext;
     private List<Tshirt> tshirtList;
 
