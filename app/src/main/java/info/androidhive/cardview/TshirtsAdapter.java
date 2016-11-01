@@ -77,7 +77,6 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
                 imgview.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT));
                 imgview.setAlpha(0.8f);
                 imgview.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                imgview.setAdjustViewBounds(true);
 
                 imgview.setImageDrawable(holder.thumbnail.getDrawable());
                 dialog.setView(imgview).show();
@@ -98,7 +97,7 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
             new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Toast.makeText(mContext,"Swipe lancée !",Toast.LENGTH_LONG).show();
+                    
                 }
             },
             new Response.ErrorListener() {
