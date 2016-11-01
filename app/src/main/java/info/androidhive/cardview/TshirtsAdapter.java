@@ -1,37 +1,33 @@
 package info.androidhive.cardview;
 
-import android.content.ClipData;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Map;
 
 /**
  * Created by Amine Liazidi on 31/10/16.
  */
 public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHolder> {
 
-    private static String URL = "http://10.0.2.2:9997/tshirt";
+    private final static String URL = "http://192.168.1.85:3000/shirt";
     private Context mContext;
     private List<Tshirt> tshirtList;
 
@@ -87,8 +83,7 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
                 dialog.setView(imgview).show();
 
                 /*SENDING HTTP POST REQUEST*/
-                AsyncT asyncT = new AsyncT();
-                asyncT.execute(URL,"name",tshirt.getName());
+                postRequest(URL,tshirt.getName());
 
 
 
@@ -97,6 +92,33 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
         });
 
     }
+    private void postRequest(String URL, String name){
+        final String value = name;
+    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Toast.makeText(mContext,"Swipe lancée !",Toast.LENGTH_LONG).show();
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(mContext,"Veuillez choisir une nouvelle fois votre produit",Toast.LENGTH_LONG).show();
+                }
+            }){
+        @Override
+        protected Map<String,String> getParams(){
+            Map<String,String> params = new HashMap<String, String>();
+            params.put("name",value);
+            return params;
+        }
+
+    };
+
+    RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+    requestQueue.add(stringRequest);
+}
 
 
     @Override

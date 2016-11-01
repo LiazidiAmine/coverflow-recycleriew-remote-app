@@ -3,8 +3,11 @@ package info.androidhive.cardview;
 /**
  * Created by Amine Liazidi on 31/10/16.
  */
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -19,11 +22,22 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import me.crosswall.lib.coverflow.CoverFlow;
 import me.crosswall.lib.coverflow.core.PagerContainer;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.id.progress;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -279,5 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
 }
