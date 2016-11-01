@@ -4,13 +4,10 @@ package info.androidhive.cardview;
  * Created by Amine Liazidi on 31/10/16.
  */
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.view.LinkagePager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,15 +16,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import me.crosswall.lib.coverflow.CoverFlow;
-import me.crosswall.lib.coverflow.core.PageItemClickListener;
 import me.crosswall.lib.coverflow.core.PagerContainer;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,18 +30,23 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TshirtsAdapter adapter;
     List<Tshirt> tshirtList;
-    int[] covers = new int[]{
-            R.drawable.tshirt1,
-            R.drawable.tshirt2,
-            R.drawable.tshirt3,
-            R.drawable.tshirt4,
-            R.drawable.tshirt5,
-            R.drawable.tshirt6,
-            R.drawable.tshirt7,
-            R.drawable.tshirt8,
-            R.drawable.tshirt9,
-            R.drawable.tshirt10,
-            R.drawable.tshirt11
+    int[] tshirts = new int[]{
+            R.drawable.femme1,
+            R.drawable.femme2,
+            R.drawable.femme3,
+            R.drawable.femme4,
+            R.drawable.femme5,
+            R.drawable.homme1,
+            R.drawable.homme2,
+            R.drawable.homme3,
+            R.drawable.homme4,
+            R.drawable.homme5
+    };
+    int[] cover = new int[]{
+            R.drawable.cover1,
+            R.drawable.cover2,
+            R.drawable.cover3,
+            R.drawable.cover4
     };
 
     @Override
@@ -103,25 +101,25 @@ public class MainActivity extends AppCompatActivity {
      * Adding few tshirts for testing
      */
     private void prepareTshirts() {
-        Tshirt a = new Tshirt("Tshirt 8", covers[2]);
+        Tshirt a = new Tshirt("mariejeanne", tshirts[7]);
         tshirtList.add(a);
-        a = new Tshirt("Tshirt 7", covers[3]);
+        a = new Tshirt("Trés Fatiguée", tshirts[1]);
         tshirtList.add(a);
-        a = new Tshirt("Tshirt 6", covers[4]);
+        a = new Tshirt("Ce n'est rien voilà tout", tshirts[2]);
         tshirtList.add(a);
-        a = new Tshirt("Tshirt 5", covers[5]);
+        a = new Tshirt("Just Do Nothing", tshirts[6]);
         tshirtList.add(a);
-        a = new Tshirt("Tshirt 10", covers[0]);
+        a = new Tshirt("Artiste incompris", tshirts[5]);
         tshirtList.add(a);
-        a = new Tshirt("Tshirt 9", covers[1]);
+        a = new Tshirt("BC BG", tshirts[3]);
         tshirtList.add(a);
-        a = new Tshirt("Tshirt 4", covers[6]);
+        a = new Tshirt("Just Do Nothing", tshirts[0]);
         tshirtList.add(a);
-        a = new Tshirt("Tshirt 3", covers[7]);
+        a = new Tshirt("Ananas", tshirts[4]);
         tshirtList.add(a);
-        a = new Tshirt("Tshirt 2", covers[8]);
+        a = new Tshirt("monsieur muscle", tshirts[8]);
         tshirtList.add(a);
-        a = new Tshirt("Tshirt 1", covers[9]);
+        a = new Tshirt("je m'en FISH", tshirts[9]);
         tshirtList.add(a);
         adapter.notifyDataSetChanged();
     }
@@ -211,40 +209,49 @@ public class MainActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             final int p = position;
             ImageView view = new ImageView(MainActivity.this);
-            view.setBackgroundResource(R.drawable.tshirt1);
+            if(p == 0){
+                view.setBackgroundResource(cover[0]);
+            }else if(p==1){
+                view.setBackgroundResource(cover[1]);
+            }else if(p==2){
+                view.setBackgroundResource(cover[2]);
+            }else if(p==3){
+                view.setBackgroundResource(cover[3]);
+            }
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(p == 0){
                         tshirtList.clear();
-                        Tshirt a = new Tshirt("Tshirt 9", covers[1]);
+                        Tshirt a = new Tshirt("Trés Fatiguée", tshirts[1]);
                         tshirtList.add(a);
-                        a = new Tshirt("Tshirt 8", covers[2]);
+                        a = new Tshirt("Ce n'est rien voilà tout", tshirts[2]);
                         tshirtList.add(a);
                         adapter.notifyDataSetChanged();
                     } else if (p == 1) {
                         tshirtList.clear();
-                        Tshirt a = new Tshirt("Tshirt 7", covers[3]);
+                        Tshirt a = new Tshirt("Just Do Nothing", tshirts[6]);
                         tshirtList.add(a);
-                        a = new Tshirt("Tshirt 6", covers[4]);
-                        tshirtList.add(a);
-                        a = new Tshirt("Tshirt 5", covers[5]);
+                        a = new Tshirt("Artiste incompris", tshirts[5]);
                         tshirtList.add(a);
                         adapter.notifyDataSetChanged();
                     } else if (p == 2) {
                         tshirtList.clear();
-                        Tshirt a = new Tshirt("Tshirt 10", covers[0]);
+                        Tshirt a = new Tshirt("BC BG", tshirts[3]);
                         tshirtList.add(a);
-                        a = new Tshirt("Tshirt 4", covers[6]);
+                        a = new Tshirt("Just Do Nothing", tshirts[0]);
+                        tshirtList.add(a);
+                        a = new Tshirt("Ananas", tshirts[4]);
                         tshirtList.add(a);
                         adapter.notifyDataSetChanged();
                     } else if (p == 3) {
                         tshirtList.clear();
-                        Tshirt a = new Tshirt("Tshirt 3", covers[7]);
+                        Tshirt a = new Tshirt("mariejeanne", tshirts[7]);
                         tshirtList.add(a);
-                        a = new Tshirt("Tshirt 2", covers[8]);
+                        a = new Tshirt("monsieur muscle", tshirts[8]);
                         tshirtList.add(a);
-                        a = new Tshirt("Tshirt 1", covers[9]);
+                        a = new Tshirt("je m'en FISH", tshirts[9]);
                         tshirtList.add(a);
                         adapter.notifyDataSetChanged();
                     }

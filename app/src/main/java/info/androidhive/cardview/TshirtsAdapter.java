@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  */
 public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHolder> {
 
-    private static String URL = "http://localhost:9997/tshirt";
+    private static String URL = "http://10.0.2.2:9997/tshirt";
     private Context mContext;
     private List<Tshirt> tshirtList;
 
@@ -84,55 +84,19 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
                 imgview.setAdjustViewBounds(true);
 
                 imgview.setImageDrawable(holder.thumbnail.getDrawable());
+                dialog.setView(imgview).show();
+
                 /*SENDING HTTP POST REQUEST*/
                 AsyncT asyncT = new AsyncT();
-                asyncT.doInBackground(URL,"name",tshirt.getName());
+                asyncT.execute(URL,"name",tshirt.getName());
 
-                dialog.setView(imgview).show();
+
 
 
             }
         });
 
-        /*holder.overflow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupMenu(holder.overflow);
-            }
-        });*/
     }
-
-    /**
-     * Showing popup menu when tapping on 3 dots
-
-    private void showPopupMenu(View view) {
-        // inflate menu
-        PopupMenu popup = new PopupMenu(mContext, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_tshirt, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
-        popup.show();
-    }*/
-
-    /**
-     * Click listener for popup menu items
-
-    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-
-        public MyMenuItemClickListener() {
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.action_add_favourite:
-                    Toast.makeText(mContext, "Try it", Toast.LENGTH_SHORT).show();
-                    return true;
-                default:
-            }
-            return false;
-        }
-    }*/
 
 
     @Override
