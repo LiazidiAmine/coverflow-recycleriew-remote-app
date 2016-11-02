@@ -54,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.homme2,
             R.drawable.homme3,
             R.drawable.homme4,
-            R.drawable.homme5
+            R.drawable.homme5,
+            R.drawable.a,//Image Ben
+            R.drawable.b,//Image Ben
+            R.drawable.c//Image Ben
     };
     int[] covers = new int[]{
             R.drawable.cover1,
@@ -134,6 +137,12 @@ public class MainActivity extends AppCompatActivity {
         a = new Tshirt("monsieur muscle", tshirts[8]);
         tshirtList.add(a);
         a = new Tshirt("je m'en FISH", tshirts[9]);
+        tshirtList.add(a);
+        a = new Tshirt("a", tshirts[10]);
+        tshirtList.add(a);
+        a = new Tshirt("b", tshirts[11]);
+        tshirtList.add(a);
+        a = new Tshirt("c", tshirts[12]);
         tshirtList.add(a);
         adapter.notifyDataSetChanged();
     }
@@ -243,6 +252,12 @@ public class MainActivity extends AppCompatActivity {
                         Tshirt a = new Tshirt("Trés Fatiguée", tshirts[1]);
                         tshirtList.add(a);
                         a = new Tshirt("Ce n'est rien voilà tout", tshirts[2]);
+                        tshirtList.add(a);
+                        a = new Tshirt("a", tshirts[10]);
+                        tshirtList.add(a);
+                        a = new Tshirt("b", tshirts[11]);
+                        tshirtList.add(a);
+                        a = new Tshirt("c", tshirts[12]);
                         tshirtList.add(a);
                         adapter.notifyDataSetChanged();
                     } else if (p == 1) {

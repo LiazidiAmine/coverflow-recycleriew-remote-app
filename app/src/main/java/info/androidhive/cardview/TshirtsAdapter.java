@@ -27,7 +27,7 @@ import java.util.Map;
 public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHolder> {
 
     /* POST REQUEST URL */
-    private final static String URL = "http://192.168.1.85:3000/shirt";
+    private final static String URL = "http://192.168.1.23:8080/api/changeTshirt";
     private Context mContext;
     private List<Tshirt> tshirtList;
 
@@ -106,7 +106,7 @@ public class TshirtsAdapter extends RecyclerView.Adapter<TshirtsAdapter.MyViewHo
         @Override
         protected Map<String,String> getParams(){
             Map<String,String> params = new HashMap<String, String>();
-            params.put("name",value);
+            params.put("id",value);
             return params;
         }
 
