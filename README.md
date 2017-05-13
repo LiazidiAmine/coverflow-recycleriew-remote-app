@@ -1,2 +1,1 @@
-# cardview
-Test project for cardview
+Une interface prototype permettant de faire des appels d'API vers un serveur distant (Essayage de vêtement), prenant en paramétre un motif, un tshirt, afin que le serveur en question affiche sur un écran l'utilisateur et son vêtement essayé.
